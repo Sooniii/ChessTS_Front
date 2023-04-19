@@ -1,24 +1,12 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter'
+import '../node_modules/cm-chessboard-ts/assets/styles/cm-chessboard.css'
+import {Chessboard} from '../node_modules/cm-chessboard-ts/src/cm-chessboard/Chessboard.js'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
+<div id="chessContainer"></div>
 `
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+let chessContainer = document.getElementById("chessContainer")
+
+if (chessContainer) {
+  new Chessboard(chessContainer), {position: "rn2k1r1/ppp1pp1p/3p2p1/5bn1/P7/2N2B2/1PPPPP2/2BNK1RR"}
+}
