@@ -13,6 +13,7 @@
     "vite": "^4.2.0"
   },
   "dependencies": {
+    "chess.ts": "^0.16.2",
     "cm-chessboard-ts": "^5.2.23"
   }
 }
