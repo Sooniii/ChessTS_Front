@@ -1,5 +1,5 @@
 import '../node_modules/cm-chessboard-ts/assets/styles/cm-chessboard.css'
-import {Chessboard, COLOR, INPUT_EVENT_TYPE} from 'cm-chessboard-ts'
+import {Chessboard, Color, COLOR, INPUT_EVENT_TYPE} from 'cm-chessboard-ts'
 import {Chess} from 'chess.ts'
 
 let playerColor = 'Blanc'
@@ -16,17 +16,22 @@ const board = new Chessboard(document.getElementById("chessContainer") !, {
     url: 'images/chessboard-sprite.svg',
     size : 40,
     cache : true
-  },
+    },
   }
 )
 
-function startGame(){
-  whiteRound()
+function startGame() {
+  let playerColor = 'Blanc'
+  let boardColor = COLOR.white
+  playRound(playerColor, boardColor)
 }
 
-function whiteRound(){
-  playerColor = 'Blanc'
-  let moves: string | any[] = []
+function playRound(playerColor:string, boardColor:Color) {
+  if (chess.gameOver()) {
+    board.destroy()
+    return
+  }
+  let moves:string[] = []
   let validate = false
   board.enableMoveInput((event) => {
     switch (event.type) {
@@ -37,7 +42,7 @@ function whiteRound(){
       case INPUT_EVENT_TYPE.validateMoveInput:
         const moveTo = event.squareTo
         for (let i = 0; i < moves.length; i++) {
-          if (moves[i].includes(moveTo)){
+          if (moves[i].includes(moveTo)) {
             board.movePiece(event.squareFrom, moveTo)
             chess.move(moves[i])
             validate = true
@@ -45,52 +50,13 @@ function whiteRound(){
         }
         if (validate) {
           board.disableMoveInput()
-          blackRound()
+          playerColor = (playerColor === 'Blanc') ? 'Noir' : 'Blanc'
+          boardColor = (boardColor === COLOR.white) ? COLOR.black : COLOR.white
+          playRound(playerColor, boardColor)
           return true
         }
     }
-  }, COLOR.white)
-}
-
-function blackRound(){
-  playerColor = 'Noir'
-  let moves: string | any[] = []
-  let validate = false
-  board.enableMoveInput((event) => {
-    switch (event.type) {
-      case INPUT_EVENT_TYPE.moveInputStarted:
-        moves = chess.moves({square: event.square})
-        console.log(moves)
-        return true
-      case INPUT_EVENT_TYPE.validateMoveInput:
-        const moveTo = event.squareTo
-        for (let i = 0; i < moves.length; i++) {
-          if (moves[i].includes(moveTo)){
-            board.movePiece(event.squareFrom, moveTo)
-            chess.move(moves[i])
-            validate = true
-          }
-        }
-        if (validate) {
-          board.disableMoveInput()
-          whiteRound()
-          return true
-        }
-    }
-  }, COLOR.black)
+  }, boardColor)
 }
 
 startGame()
-/*while (!chess.gameOver()) {
-  const moves = chess.moves()
-  const move = moves[Math.floor(Math.random() * moves.length)]
-  chess.move(move)
-}
-console.log(chess.pgn())
-
-//N = cavalier
-//B = fou
-//R = tour
-//K = roi
-//Q = reine
-//rien = pion*/
