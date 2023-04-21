@@ -75,6 +75,7 @@ import BoardAdmin from "./components/board-admin.component";
 
 import EventBus from "./common/EventBus";
 
+
 type Props = {};
 
 type State = {
@@ -192,7 +193,7 @@ class App extends Component<Props, State> {
             </div>
           )}
         </nav>
-
+        
         <div className="container mt-3">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -206,6 +207,7 @@ class App extends Component<Props, State> {
           </Routes>
         </div>
       </div>
+      
     );
   }
 }

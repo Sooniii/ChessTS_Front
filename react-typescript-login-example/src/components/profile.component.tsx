@@ -3,7 +3,8 @@ import { Navigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import {IUser} from "../interfaces/user.type";
 //import React from "react";
-import * as React from 'react'
+import * as React from 'react';
+import cat from '../img/wp7446337-ugly-cats-wallpapers.jpeg';
 
 type Props = {};
 
@@ -27,8 +28,8 @@ export default class Profile extends Component<Props, State> {
       componentDidMount() {
         const currentUser = AuthService.getCurrentUser();
     
-        if (!currentUser) this.setState({ redirect: "/home" });
-        this.setState({ currentUser: currentUser, userReady: true })
+        //if (!currentUser) this.setState({ redirect: "/home" });
+        //this.setState({ currentUser: currentUser, userReady: true })
       }
 
   render() {
@@ -66,6 +67,9 @@ export default class Profile extends Component<Props, State> {
                 currentUser.roles.map((role: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined, index: Key | null | undefined) => <li key={index}>{role}</li>)}
             </ul>
           </div> : null}
+          <div className="container">
+          <img src={ cat }/>
+        </div>
       </div>
     );
   }
