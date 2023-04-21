@@ -2,6 +2,8 @@ import { Component, JSXElementConstructor, Key, ReactElement, ReactFragment, Rea
 import { Navigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import {IUser} from "../interfaces/user.type";
+//import React from "react";
+import * as React from 'react'
 
 type Props = {};
 
